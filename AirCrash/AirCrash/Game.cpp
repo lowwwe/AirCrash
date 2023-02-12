@@ -22,6 +22,7 @@ Game::Game() :
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	setupPlanes();// load planes
 }
 
 /// <summary>
@@ -112,6 +113,7 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_skySprite);
+	m_window.draw(m_bigPlaneSprite);
 	
 	
 	
@@ -147,5 +149,21 @@ void Game::setupSky()
 	m_skyTexture.setRepeated(true);
 	m_skySprite.setTexture(m_skyTexture);
 	m_skySprite.setTextureRect(sf::IntRect{ 0,0,WIDTH,HEIGHT });
+
+}
+
+void Game::setupPlanes()
+{
+	sf::IntRect bigRectangle{ 3,11,104,93 }; // area of image for big plane
+
+	if (!m_planesTexture.loadFromFile("ASSETS\\IMAGES\\planes.png"))
+	{
+		std::cout << "problem with planes image" << std::endl;
+	}
+	m_bigPlaneSprite.setTexture(m_planesTexture);
+	m_bigPlaneSprite.setTextureRect(bigRectangle);
+	m_bigPlaneSprite.setOrigin(bigRectangle.width / 2.0f, bigRectangle.height / 2.0f);
+	m_bigPlaneSprite.setPosition(m_bigPlaneLocation);
+	m_bigPlaneSprite.setRotation(m_bigHeading);
 
 }
